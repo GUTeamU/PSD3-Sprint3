@@ -10,7 +10,7 @@
 	
 	<path id="project.classpath">
 
-		<pathelement location="bin" />
+		<pathelement location="Sprint3/bin" />
 
 		<fileset dir="lib" />
 
@@ -22,7 +22,7 @@
 		description="Deletes all intermediate files."
 	>
 		
-		<delete dir="bin" />
+		<delete dir="Sprint3/bin" />
 	
 	</target>
 	
@@ -43,7 +43,7 @@
 		description="Initalises the distribution in preparation for compilation of code and documentation."
 	>
 		
-		<mkdir dir="bin"/>
+		<mkdir dir="Sprint3/bin"/>
 		
 	</target>
 
@@ -85,7 +85,7 @@
 
 		<javac
 			srcdir="Sprint3/src"
-			destdir="bin"
+			destdir="Sprint3/bin"
 			debuglevel="lines,vars,source"
 			classpathref="project.classpath"
 		/>

@@ -19,6 +19,8 @@
     
     <dependency org="org.apache.felix" name="org.apache.felix.gogo.shell" rev="0.10.0"/>
     
+    <dependency org="org.xerial" name="sqlite-jdbc" rev="3.7.2"/>
+    
     <dependency org="org.jbehave" name="jbehave-core" rev="3.9" >
       <artifact name="jbehave-core" type="jar"/>
       <artifact name="jbehave-core-3.9-resources"  type="zip"/>     

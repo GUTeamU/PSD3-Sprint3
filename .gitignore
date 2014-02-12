@@ -3,3 +3,7 @@
 *.pyc
 .nfs*
 .metadata
+bundle/*
+jbehave/*
+lib/*
+Sprint3/bin/*
