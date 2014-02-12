@@ -1,0 +1,9 @@
+As a lecturer, I want to be able to import MyCampus sessions so that teaching sessions can be identified
+As a lecturer, I want to be able to add a session so that timetable slots can be identified
+As a lecturer, I want to be able to specify if sessions are recurring so that I don't have to create a large amount of sessions.
+As an admin, I want to be able to assign a room to a timetable slot so that room bookings can be recorded.
+As a student, I want to be able to book a slot for each session of a course so that I can take the course
+As a student, I want to be able to check if I have signed up for all compulsory sessions so that I don't fail the course.
+As a lecturer, I want to see the details (time, location, students, tutor) of every timetable slot in a session, so that I know when sessions happen.
+Document the additional information acquired from the interview with Sarah and forums by creating user stories as tickets.
+On user start up, user will want to view session and so they will need to be imported.
