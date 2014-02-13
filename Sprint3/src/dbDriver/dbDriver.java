@@ -45,11 +45,11 @@ public class dbDriver implements DatabaseInterface {
 			statement
 					.addBatch("CREATE TABLE IF NOT EXISTS student(student_id TEXT PRIMARY KEY, student_name TEXT);");
 			statement
-					.addBatch("CREATE TABLE IF NOT EXISTS session(session_id INTEGER PRIMARY KEY AUTOINCREMENT, course_id TEXT, capacity INTEGER, recurring BOOLEAN, compulsory BOOLEAN);");
+					.addBatch("CREATE TABLE IF NOT EXISTS session(session_id INTEGER PRIMARY KEY AUTOINCREMENT, course_id TEXT, recurring BOOLEAN, compulsory BOOLEAN);");
 			statement
 					.addBatch("CREATE TABLE IF NOT EXISTS tutor(tutor_id TEXT PRIMARY KEY, tutor_name TEXT);");
 			statement
-					.addBatch("CREATE TABLE IF NOT EXISTS timeslot(timeslot_id INTEGER PRIMARY KEY AUTOINCREMENT, time TEXT, duration INTEGER, day INTEGER, room TEXT, session_id INTEGER, tutor_id TEXT);");
+					.addBatch("CREATE TABLE IF NOT EXISTS timeslot(timeslot_id INTEGER PRIMARY KEY AUTOINCREMENT, capacity INTEGER, time TEXT, duration INTEGER, day INTEGER, room TEXT, session_id INTEGER, tutor_id TEXT);");
 			statement
 					.addBatch("CREATE TABLE IF NOT EXISTS student_course(student_id TEXT, course_id TEXT);");
 			statement
@@ -71,17 +71,15 @@ public class dbDriver implements DatabaseInterface {
 	 * boolean, boolean)
 	 */
 	@Override
-	public void addSession(int capacity, String courseID, boolean recurring, boolean compulsory) {
+	public void addSession(String courseID, boolean recurring, boolean compulsory) {
 		try {
 			Statement statement = connection.createStatement();
 			int recurringInt = (recurring) ? 1 : 0;
 			int compulsoryInt = (compulsory) ? 1 : 0;
 			statement.addBatch("BEGIN;");
 			statement
-					.addBatch("INSERT INTO session (course_id, capacity, recurring, compulsory) VALUES ("
+					.addBatch("INSERT INTO session (course_id, recurring, compulsory) VALUES ("
 							+ courseID
-							+ ","
-							+ capacity
 							+ ","
 							+ recurringInt
 							+ ","
@@ -101,19 +99,19 @@ public class dbDriver implements DatabaseInterface {
 	 * java.lang.String, int, java.lang.String)
 	 */
 	@Override
-	public void addTimeslot(String startTime, int duration, int day, String room) {
+	public void addTimeslot(int capacity, String startTime, int duration, int day, String room) {
 		try {
 			Statement statement = connection.createStatement();
 			statement.addBatch("BEGIN;");
 			statement
-					.addBatch("INSERT INTO timeslot (time, duration, day, room) VALUES ("
+					.addBatch("INSERT INTO timeslot (time, duration, day, room, capacity) VALUES ("
 							+ startTime
 							+ ","
 							+ duration
 							+ ","
 							+ day
 							+ ","
-							+ room + ");");
+							+ room + "," + capacity + ");");
 			statement.addBatch("COMMIT;");
 			statement.executeBatch();
 		} catch (SQLException e) {
