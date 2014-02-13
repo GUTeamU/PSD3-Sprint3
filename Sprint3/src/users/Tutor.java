@@ -1,4 +1,4 @@
-package UserRedux;
+package users;
 
 public interface Tutor{
 
