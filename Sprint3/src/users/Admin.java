@@ -9,8 +9,8 @@ public class Admin extends Lecturer{
 		super(db);
 	}
 
-	public void addTimeslot(String startTime, int duration, int day, String room){
-		super.db.addTimeslot(startTime, duration, day, room);
+	public void addTimeslot(int capacity, String startTime, int duration, int day, String room){
+		super.db.addTimeslot(capacity, startTime, duration, day, room);
 	}
 	
 	public void addCourse(String courseID, String name){
