@@ -11,6 +11,7 @@ public class Activator implements BundleActivator {
 		db = new dbDriver();
 		db.connect();
 		db.createTables();
+		dbInterface = db;
 		dbService = context.registerService(DatabaseInterface.class, dbInterface ,null );
 	}
 	

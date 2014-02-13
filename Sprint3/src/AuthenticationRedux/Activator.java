@@ -4,16 +4,17 @@ import org.osgi.framework.*;
 
 public class Activator implements BundleActivator {
 	
-	ServiceRegistration<LoginInterface> LoginService;
-	LoginInterface LoginInterface;
+	ServiceRegistration<LoginInterface> loginService;
+	LoginInterface loginInterface;
 	LoginDriver login;
 	
 	public void start(BundleContext context){
 		login = new LoginDriver();
-		LoginService = context.registerService(LoginInterface.class, LoginInterface ,null );
+		loginInterface = login;
+		loginService = context.registerService(LoginInterface.class, loginInterface ,null );
 	}
 	
 	public void stop(BundleContext context) throws Exception {
-		LoginService.unregister();
+		loginService.unregister();
 	}
 }
