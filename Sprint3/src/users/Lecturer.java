@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 
 import dbDriver.DatabaseInterface;
 
-public class Lecturer extends Users{
+public class Lecturer extends Student{
 
 	public Lecturer(DatabaseInterface db) {
 		super(db);

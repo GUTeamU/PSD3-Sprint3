@@ -2,7 +2,7 @@ package users;
 
 import dbDriver.DatabaseInterface;
 
-public class Admin extends Users{
+public class Admin extends Lecturer{
 
 	
 	public Admin(DatabaseInterface db) {

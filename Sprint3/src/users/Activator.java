@@ -9,18 +9,20 @@ import dbDriver.DatabaseInterface;
 public class Activator implements BundleActivator {
 	
 	private Users user;
+	private DatabaseInterface db;
 	
 	public void start(BundleContext context){
+		
+		
 		
 		ServiceReference<DatabaseInterface> serviceReference = 
 				context.getServiceReference(DatabaseInterface.class);
 		
-		DatabaseInterface db = context.getService(serviceReference);
+		db = context.getService(serviceReference);
 		user = new Users(db);
 	}
 	
 	public void stop(BundleContext context) throws Exception {
-		
 		
 	}
 
