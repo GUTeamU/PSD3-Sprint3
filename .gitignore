@@ -9,3 +9,4 @@ lib/*
 Sprint3/bin/*
 .*
 !.gitignore
+*.class
