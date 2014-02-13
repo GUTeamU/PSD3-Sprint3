@@ -102,7 +102,7 @@
 		<jar update="no" destfile="dbDriver.jar" manifest="config/osgi/dbDriver.MF">
 				
 				<fileset 
-					dir="bin/"
+					dir="Sprint3/bin/"
 					includes="dbDriver/*.class"
 				/>
 			
@@ -111,20 +111,23 @@
 		<jar update="no" destfile="users.jar" manifest="config/osgi/users.MF">
 			
 			<fileset 
-				dir="bin/"
+				dir="Sprint3/bin/"
 				includes="users/*.class"
 			/>
 		
 		</jar>
 		
-		<jar update="no" destfile="authentication.jar" manifest="config/osgi/authentication.MF">
+<!-- 		<jar update="no" destfile="authentication.jar" manifest="config/osgi/authentication.MF">
 			
 			<fileset 
-				dir="bin/"
+				dir="Sprint3/bin/"
 				includes="authentication/*.class"
 			/>
 		
-		</jar>
+		</jar> -->
+		
+		
+		
 <!-- 
 		<jar update="no" destfile="repository.jar" manifest="config/osgi/REPOSITORY.MF">
 			

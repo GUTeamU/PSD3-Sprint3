@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 1
-Bundle-Name: Lab Sensor Alarm
-Bundle-SymbolicName: users
+Bundle-Name: dbDrivers
+Bundle-SymbolicName: dbDriver
 Bundle-Version: 1.0.0
-Bundle-Activator: users.Activator
+Bundle-Activator: dbDriver.Activator
 Bundle-Vendor: Team U
 Bundle-Localization: plugin
 Import-Package: org.osgi.framework;version="1.3.0"
+Export-Package: dbDriver

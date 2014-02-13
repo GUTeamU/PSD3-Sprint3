@@ -1,4 +1,4 @@
-package Authentication;
+package AuthenticationRedux;
 
 import org.osgi.framework.*;
 public class Activator implements BundleActivator {
