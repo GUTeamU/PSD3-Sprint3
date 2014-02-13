@@ -10,7 +10,7 @@ public class Activator implements BundleActivator {
 	
 	public void start(BundleContext context){
 		login = new LoginDriver();
-		LoginService = context.registerService(LoginInterface.class, LoginInterface ,null );
+		LoginService = context.registerService(LoginInterface.class, new LoginDriver(), null);
 	}
 	
 	public void stop(BundleContext context) throws Exception {
