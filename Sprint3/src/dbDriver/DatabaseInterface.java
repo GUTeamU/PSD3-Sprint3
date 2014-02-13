@@ -9,7 +9,7 @@ public interface DatabaseInterface{
 	 * @param recurring, a boolean as to whether or not the session is recurs 
 	 * @param compulsory, a boolean as to whether or not the session is compulsory
 	 */
-	public void addSession(int capacity, String courseID, boolean recurring, boolean compulsory);
+	public void addSession(String courseID, boolean recurring, boolean compulsory);
 
 	/**
 	 * Adds a time slot to the timetable but does not associate it with a session
@@ -18,7 +18,7 @@ public interface DatabaseInterface{
 	 * @param day, what day of the week the time slot occurs
 	 * @param room, the room where the time is available
 	 */
-	public void addTimeslot(String startTime, int duration, int day, String room);
+	public void addTimeslot(int capacity, String startTime, int duration, int day, String room);
 	
 	/**
 	 * Creates a new course

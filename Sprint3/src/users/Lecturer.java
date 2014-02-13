@@ -14,8 +14,8 @@ public class Lecturer extends Student{
 //		//STUB
 //	}
 
-	public void addSession(int capacity, String courseID, boolean recurring, boolean compulsory){
-		super.db.addSession(capacity, courseID, recurring, compulsory);
+	public void addSession(String courseID, boolean recurring, boolean compulsory){
+		super.db.addSession(courseID, recurring, compulsory);
 	}
 
 	public void makeSessionRecurring(int sessionID){
