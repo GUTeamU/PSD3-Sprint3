@@ -1,17 +1,18 @@
 package AuthenticationRedux;
 
 import org.osgi.framework.*;
+
 public class Activator implements BundleActivator {
 	
-	ServiceRegistration<?> loginService;
+	ServiceRegistration<LoginInterface> LoginService;
+	LoginInterface LoginInterface;
+	LoginDriver login;
 	
 	public void start(BundleContext context){
-		Login login = new Login();
-		loginService = context.registerService(Login.class.getName(),login ,null );
+		login = new LoginDriver();
+		LoginService = context.registerService(LoginInterface.class, LoginInterface ,null );
 	}
 	
 	public void stop(BundleContext context) throws Exception {
-		loginService.unregister();
-	}
-
-}
+		LoginService.unregister();
+		
