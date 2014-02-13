@@ -117,14 +117,14 @@
 		
 		</jar>
 		
-<!-- 		<jar update="no" destfile="authentication.jar" manifest="config/osgi/authentication.MF">
+		<jar update="no" destfile="authentication.jar" manifest="config/osgi/authentication.MF">
 			
 			<fileset 
 				dir="Sprint3/bin/"
-				includes="authentication/*.class"
+				includes="AuthenticationRedux/*.class"
 			/>
 		
-		</jar> -->
+		</jar>
 		
 		
 		

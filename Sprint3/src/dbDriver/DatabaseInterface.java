@@ -4,7 +4,6 @@ import java.sql.*;
 public interface DatabaseInterface{
 	/**
 	 * Create a new session for a course
-	 * @param capacity, the capacity of the session
 	 * @param courseID, the unique course id of the course the session represents
 	 * @param recurring, a boolean as to whether or not the session is recurs 
 	 * @param compulsory, a boolean as to whether or not the session is compulsory
@@ -13,6 +12,7 @@ public interface DatabaseInterface{
 
 	/**
 	 * Adds a time slot to the timetable but does not associate it with a session
+	 * @param capacity, the capacity of the session
 	 * @param startTime, the starting time for the time slot
 	 * @param duration, the duration of the time slot
 	 * @param day, what day of the week the time slot occurs
