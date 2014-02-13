@@ -1,7 +1,7 @@
 package dbDriver;
 import java.sql.*;
 
-public interface DatabaseInterface {
+public interface DatabaseInterface{
 	/**
 	 * Create a new session for a course
 	 * @param capacity, the capacity of the session

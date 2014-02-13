@@ -98,6 +98,33 @@
 		description="Builds OSGi bundles for the project."
 		depends="compile"
 	>
+	
+		<jar update="no" destfile="dbDriver.jar" manifest="config/osgi/dbDriver.MF">
+				
+				<fileset 
+					dir="bin/"
+					includes="dbDriver/*.class"
+				/>
+			
+		</jar>
+		
+		<jar update="no" destfile="users.jar" manifest="config/osgi/users.MF">
+			
+			<fileset 
+				dir="bin/"
+				includes="users/*.class"
+			/>
+		
+		</jar>
+		
+		<jar update="no" destfile="authentication.jar" manifest="config/osgi/authentication.MF">
+			
+			<fileset 
+				dir="bin/"
+				includes="authentication/*.class"
+			/>
+		
+		</jar>
 <!-- 
 		<jar update="no" destfile="repository.jar" manifest="config/osgi/REPOSITORY.MF">
 			
