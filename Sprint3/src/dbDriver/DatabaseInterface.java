@@ -19,7 +19,7 @@ public interface DatabaseInterface {
 	 * @param room, the room where the time is available
 	 */
 	public void addTimeslot(String startTime, int duration, int day, String room);
-
+	
 	/**
 	 * Creates a new course
 	 * @param courseID, the unique course id of the course you want to create

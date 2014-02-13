@@ -1,6 +1,5 @@
 package users;
 
-import dbDriver.dbDriver;
 import dbDriver.DatabaseInterface;
 
 public class Users{

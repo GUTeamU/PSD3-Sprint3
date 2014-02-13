@@ -10,3 +10,4 @@ Sprint3/bin/*
 .*
 !.gitignore
 *.class
+!DatabaseInterface.class

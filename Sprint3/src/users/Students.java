@@ -16,7 +16,7 @@ public class Students extends Users{
 	}
 	
 	public ResultSet checkCompulsorySessions(String studentID){
-		return db.checkCompulsorySessions(String studentID);
+		return db.checkCompulsorySessions(studentID);
 	}
 	
 }
