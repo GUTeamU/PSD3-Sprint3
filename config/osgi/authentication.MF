@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
 Bundle-Name: Authentication
 Bundle-SymbolicName: AuthenticationRedux
 Bundle-Version: 1.0.0
@@ -6,4 +7,4 @@ Bundle-Activator: AuthenticationRedux.Activator
 Bundle-Vendor: Team U
 Bundle-Localization: plugin
 Import-Package: org.osgi.framework;version="1.3.0"
-Export-Package: LoginDriver
+Export-Package: AuthenticationRedux
