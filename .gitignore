@@ -8,7 +8,6 @@ jbehave/*
 lib/*
 Sprint3/bin/*
 .*
-!.gitignore
 *.class
 *.jar
 felix-cache/*
