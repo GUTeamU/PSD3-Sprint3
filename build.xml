@@ -35,6 +35,7 @@
 		
 		<delete dir="lib" />
 		<delete dir="bundle"/>
+		<delete dir="data"/>
 		<delete dir="jbehave"/>
 		<delete dir="felix-cache"/>
 		<delete file="authentication.jar"/>
