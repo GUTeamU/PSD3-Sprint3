@@ -49,7 +49,7 @@ public class dbDriver implements DatabaseInterface {
 
 			if (!tableExists("student")) {
 				statement
-						.execute("CREATE TABLE student(student_id VARCHAR(128) PRIMARY KEY, student_name VARCHAR(128)");
+						.execute("CREATE TABLE student(student_id VARCHAR(128) PRIMARY KEY, student_name VARCHAR(128))");
 			}
 
 			if (!tableExists("session")) {
