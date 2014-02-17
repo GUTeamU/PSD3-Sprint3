@@ -2,43 +2,10 @@ package dbDriver;
 import java.sql.*;
 
 public class dbDriver implements DatabaseInterface {
-	Connection connection = null;
-
-	void connect() {
-		try {
-			// create a database connection
-			// Class.forName("org.sqlite.JDBC");
-			connection = DriverManager
-					.getConnection("jdbc:derby:data/BookingSystem;create=true");
-		} catch (SQLException e) {
-			// if the error message is "out of memory",
-			// it probably means no database file is found
-			System.err.println(e.getMessage());
-/*		} catch (ClassNotFoundException e) {
-			e.printStackTrace();*/
-		} finally {
-			try {
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				// connection close failed.
-				System.err.println(e);
-			}
-		}
-	}
-
-	void disconnect() {
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			e.printStackTrace();
-		}
-	}
 
 	void createTables() {
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			Statement statement = connection.createStatement();
 			// statement.addBatch("BEGIN;");
@@ -100,7 +67,7 @@ public class dbDriver implements DatabaseInterface {
 	public void addSession(String courseID, boolean recurring,
 			boolean compulsory) {
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			int recurringInt = (recurring) ? 1 : 0;
 			int compulsoryInt = (compulsory) ? 1 : 0;
@@ -131,7 +98,7 @@ public class dbDriver implements DatabaseInterface {
 	public void addTimeslot(int capacity, String startTime, int duration,
 			int day, String room) {
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			Statement statement = connection.createStatement();
 //			statement.addBatch("BEGIN;");
@@ -161,7 +128,7 @@ public class dbDriver implements DatabaseInterface {
 	@Override
 	public void addCourse(String courseID, String name) {
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			Statement statement = connection.createStatement();
 			//statement.addBatch("BEGIN;");
@@ -185,7 +152,7 @@ public class dbDriver implements DatabaseInterface {
 	@Override
 	public void addStudent(String studentID, String name) {
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			Statement statement = connection.createStatement();
 			//statement.addBatch("BEGIN;");
@@ -208,7 +175,7 @@ public class dbDriver implements DatabaseInterface {
 	@Override
 	public void addStudentToCourse(String studentID, String courseID) {
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			Statement statement = connection.createStatement();
 			//statement.addBatch("BEGIN;");
@@ -231,7 +198,7 @@ public class dbDriver implements DatabaseInterface {
 	@Override
 	public void signUpToTimeslot(int timeID, String studentID) {
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			Statement statement = connection.createStatement();
 			ResultSet rs = statement
@@ -262,7 +229,7 @@ public class dbDriver implements DatabaseInterface {
 	@Override
 	public void makeSessionRecurring(int sessionID) {
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			Statement statement = connection.createStatement();
 			//statement.addBatch("BEGIN;");
@@ -285,7 +252,7 @@ public class dbDriver implements DatabaseInterface {
 	@Override
 	public void bookSession(int sessionID, int timeID) {
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			Statement statement = connection.createStatement();
 			//statement.addBatch("BEGIN;");
@@ -309,7 +276,7 @@ public class dbDriver implements DatabaseInterface {
 	public ResultSet checkCompulsorySessions(String studentID) {
 		ResultSet rs = null;
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);
@@ -333,7 +300,7 @@ public class dbDriver implements DatabaseInterface {
 	public ResultSet getCourseSessionDetails(int courseID) {
 		ResultSet rs = null;
 		try {
-			connection = DriverManager
+			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);
@@ -351,7 +318,7 @@ public class dbDriver implements DatabaseInterface {
 	public Boolean tableExists(String tableName) 
 			throws SQLException{
 
-		connection = DriverManager
+		Connection connection = DriverManager
 				.getConnection("jdbc:derby:data/BookingSystem;create=true");
 
 		DatabaseMetaData metaData = 
