@@ -3,59 +3,70 @@ import java.sql.*;
 
 public class dbDriver implements DatabaseInterface {
 
-	void createTables() {
-		try {
-			Connection connection = DriverManager
-					.getConnection("jdbc:derby:data/BookingSystem;create=true");
-			Statement statement = connection.createStatement();
-			// statement.addBatch("BEGIN;");
-			if (!tableExists("course")) {
-				statement
-						.execute("CREATE TABLE course(course_id VARCHAR(128) PRIMARY KEY, course_name VARCHAR(128))");
-			}
+    /**
+     * Create the required database tables if they don't already exists.
+     */
+    void createTables() {
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection("jdbc:derby:data/BookingSystem;create=true");
+            Statement statement = connection.createStatement();
 
-			if (!tableExists("student")) {
-				statement
-						.execute("CREATE TABLE student(student_id VARCHAR(128) PRIMARY KEY, student_name VARCHAR(128))");
-			}
+            boolean autoCommit = connection.getAutoCommit();
+            connection.setAutoCommit(false);
 
-			if (!tableExists("session")) {
-				statement
-						.execute("CREATE TABLE session(session_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), course_id VARCHAR(128), recurring BOOLEAN, compulsory BOOLEAN)");
-			}
+            if (!tableExists("course")) {
+                statement.addBatch("CREATE TABLE course(course_id VARCHAR(128) PRIMARY KEY, course_name VARCHAR(128))");
+            }
 
-			if (!tableExists("tutor")) {
-				statement
-						.execute("CREATE TABLE tutor(tutor_id VARCHAR(128) PRIMARY KEY, tutor_name VARCHAR(128))");
-			}
+            if (!tableExists("student")) {
+                statement.addBatch("CREATE TABLE student(student_id VARCHAR(128) PRIMARY KEY, student_name VARCHAR(128))");
+            }
 
-			if (!tableExists("timeslot")) {
-				statement
-						.execute("CREATE TABLE timeslot(timeslot_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), capacity INTEGER, time VARCHAR(128), duration INTEGER, day INTEGER, room VARCHAR(128), session_id INTEGER, tutor_id VARCHAR(128))");
-			}
+            if (!tableExists("session")) {
+                statement.addBatch("CREATE TABLE session(session_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), course_id VARCHAR(128), recurring BOOLEAN, compulsory BOOLEAN)");
+            }
 
-			if (!tableExists("student_course")) {
-				statement
-						.execute("CREATE TABLE student_course(student_id VARCHAR(128), course_id VARCHAR(128))");
-			}
+            if (!tableExists("tutor")) {
+                statement.addBatch("CREATE TABLE tutor(tutor_id VARCHAR(128) PRIMARY KEY, tutor_name VARCHAR(128))");
+            }
 
-			if (!tableExists("student_session")) {
-				statement
-						.execute("CREATE TABLE student_session(student_id VARCHAR(128), session_id INTEGER)");
-			}
+            if (!tableExists("timeslot")) {
+                statement.addBatch("CREATE TABLE timeslot(timeslot_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), capacity INTEGER, time VARCHAR(128), duration INTEGER, day INTEGER, room VARCHAR(128), session_id INTEGER, tutor_id VARCHAR(128))");
+            }
 
-			if (!tableExists("student_timeslot")) {
-				statement
-						.execute("CREATE TABLE student_timeslot(student_id VARCHAR(128), timeslot_id INTEGER)");
-			}
+            if (!tableExists("student_course")) {
+                statement.addBatch("CREATE TABLE student_course(student_id VARCHAR(128), course_id VARCHAR(128))");
+            }
 
-			// statement.addBatch("COMMIT;");
-			statement.executeBatch();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+            if (!tableExists("student_session")) {
+                statement.addBatch("CREATE TABLE student_session(student_id VARCHAR(128), session_id INTEGER)");
+            }
+
+            if (!tableExists("student_timeslot")) {
+                statement.addBatch("CREATE TABLE student_timeslot(student_id VARCHAR(128), timeslot_id INTEGER)");
+            }
+
+            statement.executeBatch();
+            connection.commit();
+            connection.setAutoCommit(autoCommit);
+        } catch (SQLException e) {
+            try {
+                // probably want to inspect e.getErrorCode() to decide if rollback should be attempted.
+                connection.rollback();
+            } catch (SQLException r) {
+                // TODO log
+            }
+            System.err.printf("SQL Error while creating tables: %s\n", e);
+        } finally {
+            try {
+                connection.close();
+            } catch(SQLException ignore) {
+                // We're trying to close it anyway, but probably want to log this.
+                // change to try-with-resource once pre-7 version support is not required.
+            }
+        }
+    }
 
 	/*
 	 * (non-Javadoc)
