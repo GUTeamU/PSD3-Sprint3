@@ -8,17 +8,17 @@
 
 2. Initialise the database in python console:
 
-`ant -p`
+```ant -p```
 
-`ant resolve`
+```ant resolve```
 
-`ant compile `
+```ant compile ```
 
-`ant test`
+```ant test```
 
-`ant run`
+```ant run```
 
-`lb`
+```lb```
 
-`start 0`
+```start 0```
 
