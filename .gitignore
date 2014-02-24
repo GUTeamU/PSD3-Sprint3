@@ -11,3 +11,5 @@ Sprint3/bin/*
 *.class
 *.jar
 felix-cache/*
+*.log
+data/*
