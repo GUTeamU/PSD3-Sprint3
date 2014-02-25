@@ -1,4 +1,4 @@
-package uk.ac.glasgow.senotes.cook.test;
+package test;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -23,20 +23,19 @@ import org.jbehave.core.steps.ParameterConverters.DateConverter;
 import org.jbehave.core.steps.SilentStepMonitor;
 import org.jbehave.core.steps.StepMonitor;
 
-import uk.ac.glasgow.senotes.cook.test.steps.CookSteps;
+import test.steps.UserStorySteps;
 
 /**
- * Extends the default embedder class to customise settings for the cook stories.
- * @author tws
+ * Extends the default embedder class to customise settings for the user stories.
  *
  */
-public class CookEmbedder extends Embedder {
+public class UserStoryEmbedder extends Embedder {
   
     @Override
     public InjectableStepsFactory stepsFactory() {
         return
         	new InstanceStepsFactory(
-        		configuration(), new CookSteps());
+        		configuration(), new UserStorySteps());
     }
     
     //...
@@ -91,7 +90,7 @@ public class CookEmbedder extends Embedder {
 		StoryReporterBuilder builder =
 			new StoryReporterBuilder();
 		
-        Class<? extends CookEmbedder> embedderClass =
+        Class<? extends UserStoryEmbedder> embedderClass =
             this.getClass();
         
         URL codeLocation =

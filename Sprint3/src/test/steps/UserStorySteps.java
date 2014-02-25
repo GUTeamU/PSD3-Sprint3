@@ -1,4 +1,4 @@
-package uk.ac.glasgow.senotes.cook.test.steps;
+package test.steps;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -7,22 +7,19 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 
-import uk.ac.glasgow.senotes.cook.model.CookeryException;
-import uk.ac.glasgow.senotes.cook.model.FoodItem;
-import uk.ac.glasgow.senotes.cook.model.FoodItemFactory;
-import uk.ac.glasgow.senotes.cook.model.MicrowaveOven;
-import uk.ac.glasgow.senotes.cook.model.Oven;
-import uk.ac.glasgow.senotes.cook.model.MicrowaveOven.Mode;
+import users.Admin;
+import users.Lecturer;
+import users.Student;
+import users.Tutor;
+import users.Users;
+import dbDriver.DatabaseInterface;
+import dbDriver.dbDriver;
 
 public class CookSteps {
 
-	private MicrowaveOven microwaveOven;
-	private Oven oven;
-	//...
-	
-	private FoodItem currentItem;
-	private Mode currentMode;
-	//..
+	private Users user;
+	private dbDriver db;
+
 	
 	@Given("a microwave oven")
 	public void aMicrowaveOven(){

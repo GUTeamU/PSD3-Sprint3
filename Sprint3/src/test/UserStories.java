@@ -1,4 +1,4 @@
-package uk.ac.glasgow.senotes.cook.test;
+package test;
 
 import java.io.File;
 import java.util.List;
@@ -7,11 +7,11 @@ import org.jbehave.core.embedder.Embedder;
 import org.jbehave.core.io.StoryFinder;
 import org.junit.Test;
 
-public class CookStories {
+public class UserStories {
 
 	@Test
 	public void runURLLoadedStoriesAsJUnit() {
-		Embedder embedder = new CookEmbedder();
+		Embedder embedder = new UserStoryEmbedder();
 		
 		List<String> storyPaths = 
 			getStoryPathsFromProjectBinDir();
