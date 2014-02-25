@@ -19,10 +19,11 @@
 
 	<target
 		name="clean"
-		description="Deletes all intermediate files."
+		description="Deletes all intermediate files and compiled class files."
 	>
 		
 		<delete dir="Sprint3/bin" />
+		<delete dir="jbehave"/>
 	
 	</target>
 	
@@ -50,6 +51,11 @@
 	>
 		
 		<mkdir dir="Sprint3/bin"/>
+		<copy todir="Sprint3/bin">
+			
+			<fileset dir="src" includes="**/*.story"/>
+			
+		</copy>
 		
 	</target>
 
@@ -141,35 +147,7 @@
 				dir="bin/"
 				includes="uk/ac/glasgow/senotes/components/lab/repository/*.class"
 			/>
-		
-		</jar>
-
-		<jar update="no" destfile="repository-impl.jar" manifest="config/osgi/REPOSITORY-IMPL.MF">
-		
-			<fileset 
-				dir="bin/" 
-				includes="uk/ac/glasgow/senotes/components/lab/repository/impl/*.class"
-			/>
-		
-		</jar>
-
-		<jar update="no" destfile="monitor.jar" manifest="config/osgi/MONITOR.MF">
-			
-			<fileset
-				dir="bin/"
-				includes="uk/ac/glasgow/senotes/components/lab/monitor/*.class"
-			/>
-			
-		</jar>
-
-		<jar update="no" destfile="alarm.jar" manifest="config/osgi/ALARM.MF">
-			
-			<fileset 
-				dir="bin/" 
-				includes="uk/ac/glasgow/senotes/components/lab/alarm/*.class"
-			/>
-			
-		</jar> -->
+-->
 
 	</target>
 	
@@ -212,6 +190,40 @@
 		</java>
 		
 	</target>
+	
+	<target
+		name="test.init"
+		depends="compile"
+		description="Prepares the jbehave directory with view resources for the HTML view of the JBehave tests."
+	>
+		<mkdir dir="jbehave/view"/>
+		
+		<unzip
+			src="lib/jbehave-core-3.9-resources-3.9.zip"
+			dest="jbehave/view"
+		/>
+		
+		<unzip
+			src="lib/jbehave-site-resources-3.1.1.zip"
+			dest="jbehave/view"
+		/>
+			
+	</target>
+		
+	
+	<target
+		name="test"
+		depends="build,test.init"
+		description="Runs jbehave tests"
+	>
+		
+		<junit>
+			
+			<test name="uk.ac.glasgow.senotes.cook.test.CookStories"/>
+			<classpath refid="project.classpath"/>
+		</junit>
+				
+	</target>
 		
 	
 	<target
@@ -224,12 +236,6 @@
 		name="run"
 		depends="osgi.run"
 	/>
-	
-	
-	<target
-		name="test"
-		depends="build"
-	>
 		
 
 <!-- 		<junit			
