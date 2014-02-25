@@ -9,7 +9,6 @@ public class Activator implements BundleActivator {
 	
 	public void start(BundleContext context){
 		db = new dbDriver();
-		db.connect();
 		db.createTables();
 		dbInterface = db;
 		dbService = context.registerService(DatabaseInterface.class, dbInterface ,null );
@@ -17,7 +16,6 @@ public class Activator implements BundleActivator {
 	
 	public void stop(BundleContext context) throws Exception {
 		dbService.unregister();
-		db.disconnect();
 	}
 
 }
