@@ -53,7 +53,7 @@
 		<mkdir dir="Sprint3/bin"/>
 		<copy todir="Sprint3/bin">
 			
-			<fileset dir="src" includes="**/*.story"/>
+			<fileset dir="Sprint3/src" includes="**/*.story"/>
 			
 		</copy>
 		
@@ -265,10 +265,5 @@
 
 
 		</junit> -->
-
-
-		
-	
-	</target>
 	
 </project>

@@ -15,15 +15,25 @@ import users.Users;
 import dbDriver.DatabaseInterface;
 import dbDriver.dbDriver;
 
-public class CookSteps {
+public class UserStorySteps {
 
 	private Users user;
-	private dbDriver db;
+	private dbDriver db = new dbDriver();
 
 	
-	@Given("a microwave oven")
-	public void aMicrowaveOven(){
-		this.microwaveOven = new MicrowaveOven();		
+	@Given("a $user")
+	public void aUser(String user){
+		if(user.compareTo("Admin") == 0){
+			this.user = new Admin(db);
+		}else if(user.compareTo("Lecturer") == 0){
+			this.user = new Lecturer(db);
+		}else if(user.compareTo("Student") == 0){
+			this.user = new Student(db);
+		}else if(user.compareTo("Tutor") == 0){
+			this.user = new Tutor(db);
+		}else{
+			// Error
+		}
 	}
 	
 	@When("the $modeName mode is selected")
