@@ -42,7 +42,7 @@ Scenario: As an administrator
 Given an administrator
 And a session, 1
 When I want to create a timetable slot for a session so that rooms can be assigned to slots.
-Then the system assigns the sessions
+Then the system assigns the sessions to the timeslot
 
 Scenario: As a user
 Given a user
