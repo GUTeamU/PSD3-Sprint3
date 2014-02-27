@@ -22,7 +22,7 @@ public class Lecturer extends Student{
 		super.db.makeSessionRecurring(sessionID);
 	}
 
-	public ResultSet getCourseSessionDetails(int courseID){
+	public ResultSet getCourseSessionDetails(String courseID){
 		return super.db.getCourseSessionDetails(courseID);
 	}
 }

@@ -308,7 +308,7 @@ public class dbDriver implements DatabaseInterface {
 	 * @see database.DatabaseInterface#getCourseSessionDetails(int)
 	 */
 	@Override
-	public ResultSet getCourseSessionDetails(int courseID) {
+	public ResultSet getCourseSessionDetails(String courseID) {
 		ResultSet rs = null;
 		try {
 			Connection connection = DriverManager

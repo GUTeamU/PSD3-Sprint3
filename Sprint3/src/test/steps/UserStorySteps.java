@@ -20,20 +20,20 @@ public class UserStorySteps {
 	private Users user;
 	private dbDriver db = new dbDriver();
 	private String course;
-	private String session;
+	private int session;
 
 	
 	@Given("a user, $user")
 	public void aUser(String user){
-		if(user.compareTo("User") == 0){
+		if(user.equalsIgnoreCase("User")){
 			;
-		}else if(user.compareTo("Admin") == 0){
+		}else if(user.equalsIgnoreCase("Admin")){
 			this.user = new Admin(db);
-		}else if(user.compareTo("Lecturer") == 0){
+		}else if(user.equalsIgnoreCase("Lecturer")){
 			this.user = new Lecturer(db);
-		}else if(user.compareTo("Student") == 0){
+		}else if(user.equalsIgnoreCase("Student")){
 			this.user = new Student(db);
-		}else if(user.compareTo("Tutor") == 0){
+		}else if(user.equalsIgnoreCase("Tutor")){
 			this.user = new Tutor(db);
 		}else{
 			// Error
@@ -46,7 +46,7 @@ public class UserStorySteps {
 	}
 	
 	@Given("a session, $session")
-	public void aSession(String session){
+	public void aSession(int session){
 		this.session = session;
 	}
 	
@@ -57,17 +57,23 @@ public class UserStorySteps {
 
 	@When ("I add a session")
 	public void addSession(){
-		
+		if (user instanceof Lecturer) {//make sure it is an instance of the child class before casting
+			((Lecturer) user).addSession(course, false, false);
+		}
 	}
 
 	@When ("I specify a session is recurring")
 	public void makeSessionRecurring(){
-		
+		if (user instanceof Lecturer) {//make sure it is an instance of the child class before casting
+			((Lecturer) user).makeSessionRecurring(session);
+		}
 	}
 
 	@When ("I want to see details")
 	public void getCourseSessionDetails(){
-		
+		if (user instanceof Lecturer) {//make sure it is an instance of the child class before casting
+			((Lecturer) user).getCourseSessionDetails(course);
+		}
 	}
 
 	@When ("I want to book a slot for each session for the course")

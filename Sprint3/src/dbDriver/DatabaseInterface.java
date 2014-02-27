@@ -77,5 +77,5 @@ public interface DatabaseInterface{
 	 * the student ID's of the students assigned to the session and 
 	 * the student's names.
 	 */
-	public ResultSet getCourseSessionDetails(int courseID);
+	public ResultSet getCourseSessionDetails(String courseID);
 }
