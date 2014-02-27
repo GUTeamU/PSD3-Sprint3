@@ -26,13 +26,13 @@ Then I see the details of every session
 
 
 Scenario: As a student
-Given a student
+Given a user, student
 And a course, CompSci
 When I want to book a slot for each session for the course
 Then the slots are booked
 
 Scenario: As a student
-Given a student
+Given a user, student
 And a course, CompSci
 When I want to check if I have signed up for all compulsory sessions so that I don't fail the course.
 Then the system checks

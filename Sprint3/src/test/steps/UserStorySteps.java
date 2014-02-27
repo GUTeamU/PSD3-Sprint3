@@ -19,11 +19,15 @@ public class UserStorySteps {
 
 	private Users user;
 	private dbDriver db = new dbDriver();
+	private String course;
+	private String session;
 
 	
-	@Given("a $user")
+	@Given("a user, $user")
 	public void aUser(String user){
-		if(user.compareTo("Admin") == 0){
+		if(user.compareTo("User") == 0){
+			;
+		}else if(user.compareTo("Admin") == 0){
 			this.user = new Admin(db);
 		}else if(user.compareTo("Lecturer") == 0){
 			this.user = new Lecturer(db);
@@ -35,6 +39,18 @@ public class UserStorySteps {
 			// Error
 		}
 	}
+	
+	@Given("a course, $course")
+	public void aCourse(String course){
+		this.course = course;
+	}
+	
+	@Given("a session, $session")
+	public void aSession(String session){
+		this.session = session;
+	}
+	
+	
 	
 	@When("the $modeName mode is selected")
 	public void modeIsSelected(String modeName){
@@ -63,11 +79,6 @@ public class UserStorySteps {
 			microwaveOven.getCalculatedTime();
 						
 		assertThat(actual, equalTo(expected));
-	}
-	
-	@Given("an oven")
-	public void anOven(){
-		oven = new Oven();
 	}
 	
 	@When("a chicken weighing $weight kg is roasted")
