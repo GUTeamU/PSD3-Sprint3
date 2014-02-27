@@ -42,3 +42,38 @@ Given an administrator
 And a session, Lab
 When I want to create a timetable slot for a session so that rooms can be assigned to slots.
 Then the system assigns the sessions
+
+Scenario: As a user
+Given a user
+When a login is entered
+Then the correct interface will be displayed
+
+Scenario: As a user
+Given a user
+When logging into the system
+I want to authenticate myself using the MyCampus single sign-on service
+
+Scenario:
+Given a list of courses
+When up to 10 sessions are added
+Then students should be able to enroll
+
+Scenario: 
+Given a system
+When enrollment begins
+Then the system should be able to support 100 users at a time
+
+Scenario:
+Given 100 courses
+When these are entered
+Then the system will allow students to enroll
+
+Scenario: 
+Given 1000 users
+When they are enrolled
+Then they should be able to interact with it simultaneously
+
+Scenario:
+Given a session
+When at least 20 timetable slots are scheduled
+Then students should be able to enroll
