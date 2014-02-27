@@ -50,7 +50,41 @@ public class UserStorySteps {
 		this.session = session;
 	}
 	
-	
+	@When ("importing the sessions")
+	public void importSessions(){
+		
+	}
+
+	@When ("I add a session")
+	public void addSession(){
+		
+	}
+
+	@When ("I specify a session is recurring")
+	public void makeSessionRecurring(){
+		
+	}
+
+	@When ("I want to see details")
+	public void getCourseSessionDetails(){
+		
+	}
+
+	@When ("I want to book a slot for each session for the course")
+	public void bookSession(){
+		
+	}
+
+	@When ("I want to check if I have signed up for all compulsory sessions so that I don't fail the course.")
+	public void checkCompulsorySessions(){
+		
+	}
+
+	@When ("I want to create a timetable slot for a session so that rooms can be assigned to slots.")
+	public void addTimeslot(){
+		
+	}
+
 	
 	@When("the $modeName mode is selected")
 	public void modeIsSelected(String modeName){
