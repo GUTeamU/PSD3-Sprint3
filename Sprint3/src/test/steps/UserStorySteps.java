@@ -107,12 +107,6 @@ public class UserStorySteps {
 	public void addSession(){
 		if (user instanceof Lecturer) {//make sure it is an instance of the child class before casting
 			((Lecturer) user).addSession(course, false, false);
-			try{
-				returnValue.last();
-				sizeBefore = returnValue.getRow();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
