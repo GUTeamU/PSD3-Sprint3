@@ -105,7 +105,7 @@ public class UserStorySteps {
 
 	@When ("I add a session")
 	public void addSession(){
-		if (user instanceof Lecturer) {//make sure it is an instance of the child class before casting
+		if (user instanceof Lecturer ) {//make sure it is an instance of the child class before casting
 			((Lecturer) user).addSession(course, false, false);
 		}
 	}
@@ -140,6 +140,7 @@ public class UserStorySteps {
 			}
 			returnValue = ((Student) user).checkCompulsorySessions(studentID);
 		}
+		
 	}
 
 	@When ("I want to check if I have signed up for all compulsory sessions so that I don't fail the course.")
@@ -163,11 +164,15 @@ public class UserStorySteps {
 	}
 
 	@Then("the session is made")
-	public void checkSessionExistence(){
+	public void checkSessionExistence() throws Exception{
+//		throw new Exception("Before DB");
 		returnValue = db.selectCourseSessions(course);
+//		throw new Exception("After DB: ");
 		try{
 			returnValue.last();
-			assertThat(returnValue.getRow(), equalTo(sizeBefore+1));
+			throw new Exception("Return Last");
+//			assertThat(returnValue.getRow(), equalTo(sizeBefore+1));
+//			throw new Exception("After Assertion");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

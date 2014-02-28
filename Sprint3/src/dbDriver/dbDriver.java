@@ -2,13 +2,18 @@ package dbDriver;
 import java.sql.*;
 
 public class dbDriver implements DatabaseInterface {
-
+	
+	public dbDriver(){
+		this.createTables();
+	}
+	
     /**
      * Create the required database tables if they don't already exists.
      */
-    void createTables() {
+    public void createTables() {
         Connection connection = null;
         try {
+        	
             connection = DriverManager.getConnection("jdbc:derby:data/BookingSystem;create=true");
             Statement statement = connection.createStatement();
 
@@ -17,34 +22,50 @@ public class dbDriver implements DatabaseInterface {
 
             if (!tableExists("course")) {
                 statement.addBatch("CREATE TABLE course(course_id VARCHAR(128) PRIMARY KEY, course_name VARCHAR(128))");
+            }else{
+            	System.out.println("Course already created");
             }
 
             if (!tableExists("student")) {
                 statement.addBatch("CREATE TABLE student(student_id VARCHAR(128) PRIMARY KEY, student_name VARCHAR(128))");
+            }else{
+            	System.out.println("Student already created");
             }
 
             if (!tableExists("session")) {
                 statement.addBatch("CREATE TABLE session(session_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), course_id VARCHAR(128), recurring BOOLEAN, compulsory BOOLEAN)");
+            }else{
+            	System.out.println("Session already created");
             }
 
             if (!tableExists("tutor")) {
                 statement.addBatch("CREATE TABLE tutor(tutor_id VARCHAR(128) PRIMARY KEY, tutor_name VARCHAR(128))");
+            }else{
+            	System.out.println("Tutor already created");
             }
 
             if (!tableExists("timeslot")) {
                 statement.addBatch("CREATE TABLE timeslot(timeslot_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), capacity INTEGER, time VARCHAR(128), duration INTEGER, day INTEGER, room VARCHAR(128), session_id INTEGER, tutor_id VARCHAR(128))");
+            }else{
+            	System.out.println("Timeslot already created");
             }
 
             if (!tableExists("student_course")) {
                 statement.addBatch("CREATE TABLE student_course(student_id VARCHAR(128), course_id VARCHAR(128))");
+            }else{
+            	System.out.println("Studentcourse already created");
             }
 
             if (!tableExists("student_session")) {
                 statement.addBatch("CREATE TABLE student_session(student_id VARCHAR(128), session_id INTEGER)");
+            }else{
+            	System.out.println("Studentsession already created");
             }
 
             if (!tableExists("student_timeslot")) {
                 statement.addBatch("CREATE TABLE student_timeslot(student_id VARCHAR(128), timeslot_id INTEGER)");
+            }else{
+            	System.out.println("Studenttimeslot already created");
             }
 
             statement.executeBatch();
@@ -58,13 +79,6 @@ public class dbDriver implements DatabaseInterface {
                 // TODO log
             }
             System.err.printf("SQL Error while creating tables: %s\n", e);
-        } finally {
-            try {
-                connection.close();
-            } catch(SQLException ignore) {
-                // We're trying to close it anyway, but probably want to log this.
-                // change to try-with-resource once pre-7 version support is not required.
-            }
         }
     }
 
@@ -84,15 +98,14 @@ public class dbDriver implements DatabaseInterface {
 			int compulsoryInt = (compulsory) ? 1 : 0;
 			Statement statement = connection.createStatement();
 			//statement.addBatch("BEGIN;");
-			statement
-					.addBatch("INSERT INTO session (course_id, recurring, compulsory) VALUES ("
+			System.out.println(statement 
+					.executeUpdate("INSERT INTO session (course_id, recurring, compulsory) VALUES ("
 							+ courseID
 							+ ","
 							+ recurringInt
 							+ ","
-							+ compulsoryInt + ");");
-			//statement.addBatch("COMMIT;");
-			statement.executeBatch();
+							+ compulsoryInt + ");"));
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -350,7 +363,7 @@ public class dbDriver implements DatabaseInterface {
 		return result;
 	}
 
-	public ResultSet selectCourseSessions(String course) {
+	public ResultSet selectCourseSessions(String course) throws Exception {
 		ResultSet rs = null;
 		try {
 			Connection connection = DriverManager
@@ -360,6 +373,7 @@ public class dbDriver implements DatabaseInterface {
 			rs = statement
 					.executeQuery("SELECT s.session_id FROM session AS s WHERE course_id = "
 							+ course);
+			throw new Exception("statement: " );
 		} catch (SQLException e) {
 			// TODO Auto-generated method stub
 			e.printStackTrace();
