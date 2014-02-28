@@ -6,7 +6,7 @@
 bundle/*
 jbehave/*
 lib/*
-Sprint3/bin/*
+bin/*
 .*
 *.class
 *.jar

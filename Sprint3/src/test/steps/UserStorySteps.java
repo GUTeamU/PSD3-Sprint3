@@ -4,6 +4,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
@@ -14,7 +16,6 @@ import users.Lecturer;
 import users.Student;
 import users.Tutor;
 import users.Users;
-import dbDriver.DatabaseInterface;
 import dbDriver.dbDriver;
 
 public class UserStorySteps {
@@ -33,6 +34,7 @@ public class UserStorySteps {
 	private String room;
 
 	private ResultSet returnValue;
+	private int sizeBefore;
 	
 	@Given("a user, $user")
 	public void aUser(String user){
@@ -105,6 +107,12 @@ public class UserStorySteps {
 	public void addSession(){
 		if (user instanceof Lecturer) {//make sure it is an instance of the child class before casting
 			((Lecturer) user).addSession(course, false, false);
+			try{
+				returnValue.last();
+				sizeBefore = returnValue.getRow();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -124,8 +132,19 @@ public class UserStorySteps {
 
 	@When ("I want to book a slot for each session for the course")
 	public void bookSession(){
-		if (user instanceof Admin) {//make sure it is an instance of the child class before casting
-			((Admin) user).bookSession(session, time);
+		if (user instanceof Student) {//make sure it is an instance of the child class before casting
+			returnValue = ((Student) user).checkCompulsorySessions(studentID);
+			try{
+				returnValue.last();
+				int count = returnValue.getRow();
+				returnValue.first();
+				for(int i=0; i<count; i++){
+					
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			returnValue = ((Student) user).checkCompulsorySessions(studentID);
 		}
 	}
 
@@ -151,22 +170,51 @@ public class UserStorySteps {
 
 	@Then("the session is made")
 	public void checkSessionExistence(){
-		
+		returnValue = db.selectCourseSessions(course);
+		try{
+			returnValue.last();
+			assertThat(returnValue.getRow(), equalTo(sizeBefore+1));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Then("the session is recurring")
 	public void checkSessionRecurring(){
-		
+		returnValue = db.selectSession(session);
+		int value = 0;
+		try{
+			value = returnValue.getInt("recurring");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		assertThat(value, equalTo(1));
 	}
 
 	@Then("I see the details of every session")
 	public void checkDetailsExistence(){
-		
+		int columns = 0;
+		int rows = -1;
+		try{
+			ResultSetMetaData rsmd = returnValue.getMetaData();
+			columns = rsmd.getColumnCount();
+			returnValue.last();
+			rows = returnValue.getRow();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		assertThat(columns, equalTo(5));
+		assertThat(rows, greaterThanOrEqualTo(0));
 	}
 
 	@Then("the slots are booked")
 	public void checkSlotBooked(){
-		
+		try {
+			returnValue.last();
+			assertThat(returnValue.getRow(), equalTo(0));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Then("the system checks")
@@ -174,33 +222,16 @@ public class UserStorySteps {
 		
 	}
 
-	@Then("the system assigns the sessions to the timeslot")
+	@Then("the system the system creates a timeslot")
 	public void checkAssignment(){
-		
+		returnValue = db.checkTimeSlot(capacity, startTime, duration, day, room);
+		try{
+			returnValue.last();
+			assertThat(returnValue.getRow(), greaterThan(0));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	
-	@Then("cooking time is $expected minutes")
-	public void cookingTimeIs(Integer expected)
-		throws CookeryException{
-		
-		Integer actual =
-			microwaveOven.getCalculatedTime();
-						
-		assertThat(actual, equalTo(expected));
-	}
-	
-	@Then("oven temperature is $expected degrees celsius")
-	public void ovenTemperatureIs(Integer expected){
-		Integer actual = oven.getTemperatureCelsius();
-		
-		assertThat(actual, equalTo(expected));
-	}
-	
-	@Then("roasting time is $expected minutes")
-	public void roastingTimeIs(Integer expected){
-		Integer actual = oven.getRoastingTime();
-		
-		assertThat(actual, equalTo(expected));
-	}
 }

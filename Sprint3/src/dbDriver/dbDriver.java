@@ -350,4 +350,61 @@ public class dbDriver implements DatabaseInterface {
 		return result;
 	}
 
+	public ResultSet selectCourseSessions(String course) {
+		ResultSet rs = null;
+		try {
+			Connection connection = DriverManager
+					.getConnection("jdbc:derby:data/BookingSystem;create=true");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30);
+			rs = statement
+					.executeQuery("SELECT s.session_id FROM session AS s WHERE course_id = "
+							+ course);
+		} catch (SQLException e) {
+			// TODO Auto-generated method stub
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	
+	public ResultSet selectSession(int session) {
+		ResultSet rs = null;
+		try {
+			Connection connection = DriverManager
+					.getConnection("jdbc:derby:data/BookingSystem;create=true");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30);
+			rs = statement
+					.executeQuery("SELECT session_id, recurring FROM session WHERE session_id = "
+							+ session);
+		} catch (SQLException e) {
+			// TODO Auto-generated method stub
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
+	public ResultSet checkTimeSlot(int capacity, String startTime,
+			int duration, int day, String room) {
+		ResultSet rs = null;
+		try {
+			Connection connection = DriverManager
+					.getConnection("jdbc:derby:data/BookingSystem;create=true");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30);
+			rs = statement
+					.executeQuery("SELECT timeslot_id " +
+							"FROM timeslot " +
+							"WHERE capacity=" + capacity  +
+							"AND time=" + startTime +
+							"AND duration=" + duration +
+							"AND day=" + day +
+							"AND room=" + room);
+		} catch (SQLException e) {
+			// TODO Auto-generated method stub
+			e.printStackTrace();
+		}
+		return rs;
+	}
+
 }

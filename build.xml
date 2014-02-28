@@ -10,7 +10,7 @@
 	
 	<path id="project.classpath">
 
-		<pathelement location="Sprint3/bin" />
+		<pathelement location="./bin" />
 
 		<fileset dir="lib" />
 
@@ -22,7 +22,7 @@
 		description="Deletes all intermediate files and compiled class files."
 	>
 		
-		<delete dir="Sprint3/bin" />
+		<delete dir="./bin" />
 		<delete dir="jbehave"/>
 	
 	</target>
@@ -50,8 +50,8 @@
 		description="Initalises the distribution in preparation for compilation of code and documentation."
 	>
 		
-		<mkdir dir="Sprint3/bin"/>
-		<copy todir="Sprint3/bin">
+		<mkdir dir="bin"/>
+		<copy todir="bin">
 			
 			<fileset dir="Sprint3/src" includes="**/*.story"/>
 			
@@ -97,7 +97,7 @@
 
 		<javac
 			srcdir="Sprint3/src"
-			destdir="Sprint3/bin"
+			destdir="./bin"
 			debuglevel="lines,vars,source"
 			classpathref="project.classpath"
 		/>
@@ -114,7 +114,7 @@
 		<jar update="no" destfile="dbDriver.jar" manifest="config/osgi/dbDriver.MF">
 				
 				<fileset 
-					dir="Sprint3/bin/"
+					dir="./bin/"
 					includes="dbDriver/*.class"
 				/>
 			
@@ -123,7 +123,7 @@
 		<jar update="no" destfile="users.jar" manifest="config/osgi/users.MF">
 			
 			<fileset 
-				dir="Sprint3/bin/"
+				dir="./bin/"
 				includes="users/*.class"
 			/>
 		
@@ -132,7 +132,7 @@
 		<jar update="no" destfile="authentication.jar" manifest="config/osgi/authentication.MF">
 			
 			<fileset 
-				dir="Sprint3/bin/"
+				dir="./bin/"
 				includes="AuthenticationRedux/*.class"
 			/>
 		
@@ -213,13 +213,13 @@
 	
 	<target
 		name="test"
-		depends="build,test.init"
+		depends="test.init"
 		description="Runs jbehave tests"
 	>
 		
-		<junit>
+		<junit printsummary="yes">
 			
-			<test name="uk.ac.glasgow.senotes.cook.test.CookStories"/>
+			<test name="test.UserStories"/>
 			<classpath refid="project.classpath"/>
 		</junit>
 				

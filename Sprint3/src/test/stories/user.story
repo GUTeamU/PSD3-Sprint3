@@ -7,7 +7,6 @@ Then the sessions will import correctly
 Scenario: As a lecturer
 Given a user, lecturer
 And a course, CompSci203
-And a session, 1
 When I add a session
 Then the session is made
 
@@ -25,7 +24,6 @@ And a session, 1
 When I want to see details
 Then I see the details of every session
 
-
 Scenario: As a student
 Given a user, student
 And a course, CompSci203
@@ -42,7 +40,7 @@ Scenario: As an administrator
 Given an administrator
 And a session, 1
 When I want to create a timetable slot for a session so that rooms can be assigned to slots.
-Then the system assigns the sessions to the timeslot
+Then the system creates a timeslot
 
 Scenario: As a user
 Given a user
