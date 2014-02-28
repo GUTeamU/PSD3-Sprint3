@@ -23,7 +23,11 @@
 	>
 		
 		<delete dir="./bin" />
+		<delete dir="Sprint3/bin" />
 		<delete dir="jbehave"/>
+		<delete file="authentication.jar"/>
+		<delete file="users.jar"/>
+		<delete file="dbDriver.jar"/>
 	
 	</target>
 	
@@ -39,9 +43,7 @@
 		<delete dir="data"/>
 		<delete dir="jbehave"/>
 		<delete dir="felix-cache"/>
-		<delete file="authentication.jar"/>
-		<delete file="users.jar"/>
-		<delete file="dbDriver.jar"/>
+
 	</target>
 	
 	
@@ -264,6 +266,14 @@
 			/>
 
 
+
 		</junit> -->
+		
+		<taskdef
+			name="junit"
+			classname="org.apache.tools.ant.taskdefs.optional.junit.JUnitTask"
+>
+			<classpath path="ant-junit-1.7.1.jar"/>
+		</taskdef>
 	
 </project>
