@@ -310,8 +310,10 @@ public class dbDriver implements DatabaseInterface {
 			
 		}catch (SQLException e){
 			//TODO Auto-generated method stub
+			
+			return 0;
 		}
-		return 0;
+		
 		
 	}
 	
