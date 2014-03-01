@@ -289,6 +289,32 @@ public class dbDriver implements DatabaseInterface {
 			e.printStackTrace();
 		}
 	}
+	//Non functional
+	public int userNumber(int num){
+		try{
+			Connection connection = DriverManager
+					.getConnection("jdbc:derby:data/BookingSystem;create=true");
+			Statement statement = connection.createStatement();
+			for (int index=0;index<=num;index++){
+				statement.addBatch("INSERT INTO course(course_id) VALUES ("
+							+ num + ")" );
+				statement.executeBatch();
+			}
+			int counter=0;
+			String newQuery = "SELECT * FROM course";
+			ResultSet queryRes = statement.executeQuery(newQuery);
+			while(queryRes.next()){
+				counter+=1;
+			}
+			return counter;
+			
+		}catch (SQLException e){
+			//TODO Auto-generated method stub
+		}
+		return 0;
+		
+	}
+	
 
 	/*
 	 * (non-Javadoc)
@@ -371,7 +397,7 @@ public class dbDriver implements DatabaseInterface {
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30);
 			rs = statement
-					.executeQuery("SELECT s.session_id FROM session AS s WHERE course_id = "
+					.executeQuery("SELECT s.session_id FROM session AS s WHERE course_id = " 
 							+ course);
 			throw new Exception("statement: " );
 		} catch (SQLException e) {

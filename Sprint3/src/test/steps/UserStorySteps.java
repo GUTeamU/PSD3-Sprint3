@@ -32,6 +32,11 @@ public class UserStorySteps {
 	private int duration;
 	private int day;
 	private String room;
+	
+	private int numCourse = 0;
+	private int numSession = 0;
+	private int numUsers  = 0;
+	private int numSlots = 0;
 
 	private ResultSet returnValue;
 	private int sizeBefore;
@@ -231,6 +236,31 @@ public class UserStorySteps {
 			e.printStackTrace();
 		}
 	}
+	
+	//Non-functional requirements
+	
+
+	@Given("a system")
+	public void aSystem(dbDriver db){
+		this.db = db;
+				
+	}
+	
+
+	//Performance 0
+	@When("the system supports more than $courseNum")
+	public void numberOfCourses(int courseNum){
+		numCourse = db.userNumber(courseNum);
+	}
+	
+	@Then("The system will supoer more than $courseNum courses")
+	public void courseNumSupport(int courseNum){
+		assertThat(courseNum,greaterThan(100));
+	}
+	
+	
+
+
 
 	
 }
