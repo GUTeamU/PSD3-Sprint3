@@ -264,24 +264,24 @@ public class UserStorySteps {
 
 	@Then("Then the student interface is shown")
 	public void studentAccess(){
-		assertTrue(stud instanceof Student);
+		assertThat(stud, instanceOf(Student.class));
 	}
 
 	@Then("Then the admin interface is shown")
 	public void adminAccess(){
-		assertTrue(ad instanceof Admin);
+		assertThat(ad, instanceOf(Admin.class));
 	}
 
 	@Then("Then the lecturer interface is shown")
 	public void lecturerAccess(){
-		assertTrue(lec instanceof Lecturer);
+		assertThat(lec, instanceOf(Lecturer.class));
 	}
 
 	
 	//Performance 0
 	@When("the system supports more than $courseNumb courses")
 	public void numberOfCourses(int courseNumb){
-		numCourse=db.courseNum(courseNumb);
+		numCourse=db.courseNumber(courseNumb);
 	}
 
 	@Then("The system will support more than $courseN courses")
@@ -301,7 +301,7 @@ public class UserStorySteps {
 	
 	@When("session $sessionID can support $slotNum timetable slots")
 	public void numberOfSlots(int sessionID, int slotNum){
-		numSlots = db.slotNumber(sessionID, slotNum);
+		numSlots = db.numberOfSlots(sessionID, slotNum);
 	}
 	@Then("the system can support more than $totalSlot timeslots")
 	public void slotsSupported(int totalSlot){
