@@ -1,6 +1,6 @@
 package test.steps;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 import java.sql.ResultSet;
@@ -22,6 +22,9 @@ public class UserStorySteps {
 
 	private Users user;
 	private dbDriver db = new dbDriver();
+	private Student stud;
+	private Admin  ad;
+	private Lecturer lec;
 	
 	private String course;
 	private int session;
@@ -237,29 +240,60 @@ public class UserStorySteps {
 		}
 	}
 	
+
+
 	//Non-functional requirements
 	
 
 	@Given("a system")
 	public void aSystem(dbDriver db){
-		this.db = db;
-				
+		this.db = db;				
 	}
-	
 
+	@When("a student logs in")
+	public void StudentLogin(){
+		stud = new Student(db);
+	}
+
+	@When("an admin logs in")
+	public void AdminLogin(){
+		ad = new Admin(db);
+
+	} 
+
+	@When("a lecturer logs in")
+	public void LecturerLogin(){
+		lec = new Lecturer(db);
+	} 
+
+	@Then("Then the student interface is shown")
+	public void studentAccess(){
+		assertTrue(stud instanceof Student);
+	}
+
+	@Then("Then the admin interface is shown")
+	public void adminAccess(){
+		assertTrue(ad instanceof Admin);
+	}
+
+	@Then("Then the lecturer interface is shown")
+	public void lecturerAccess(){
+		assertTrue(lec instanceof Lecturer);
+	}
+
+	
 	//Performance 0
-	@When("the system supports more than $courseNum")
-	public void numberOfCourses(int courseNum){
-		numCourse = db.userNumber(courseNum);
+	@When("the system supports more than $courseNumb courses")
+	public void numberOfCourses(int courseNumb){
+		numCourse=db.courseNum(courseNumb);
 	}
-	
-	@Then("The system will supoer more than $courseNum courses")
-	public void courseNumSupport(int courseNum){
-		assertThat(courseNum,greaterThan(100));
-	}
-	
-	
 
+
+	
+	@Then("The system will support more than $courseN courses")
+	public void courseNumSupport(int courseN){
+		assertThat(courseN,greaterThan(100));
+	}
 
 
 	

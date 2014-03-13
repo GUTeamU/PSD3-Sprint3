@@ -62,6 +62,12 @@ public class dbDriver implements DatabaseInterface {
             	System.out.println("Studentsession already created");
             }
 
+            if (!tableExists("session_timeslot")) {
+                statement.addBatch("CREATE TABLE session_timeslot(session_id INTEGER, timeslot_id INTEGER)");
+            }else{
+            	System.out.println("session_timeslot already created");
+            }
+
             if (!tableExists("student_timeslot")) {
                 statement.addBatch("CREATE TABLE student_timeslot(student_id VARCHAR(128), timeslot_id INTEGER)");
             }else{
@@ -112,6 +118,28 @@ public class dbDriver implements DatabaseInterface {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see database.DatabaseInterface#sessTimeslot(int,int)
+	 */
+	public void sessTimeslot(int session_id,int timeslot_id){
+		try{
+			Connection connection = DriverManager
+					.getConnection("jdbc:derby:data/BookingSystem;create=true");
+			Statement statement = connection.createStatement();
+			statement
+					.addBatch("INSERT INTO session_timeslot(session_id,timeslot_id) VALUES("
+							+ session_id
+							+ ","
+							+ timeslot_id + ")");
+			statement.executeBatch();
+
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -289,8 +317,9 @@ public class dbDriver implements DatabaseInterface {
 			e.printStackTrace();
 		}
 	}
+
 	//Non functional
-	public int userNumber(int num){
+	public int courseNumber(int num){
 		try{
 			Connection connection = DriverManager
 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
@@ -316,6 +345,83 @@ public class dbDriver implements DatabaseInterface {
 		
 		
 	}
+
+	public int userNumber(int num){
+		if(num>0){
+
+			try{
+
+				Connection connection = DriverManager
+						.getConnection("jdbc:derby:data/BookingSystem;create=true");
+				Statement statement = connection.createStatement();
+				for (int i=0;i < num; i++){
+					statement.addBatch("INSERT INTO Student(student_id,student_name) VALUES("
+						+ i + "," + i + ");" );
+					statement.executeBatch();
+				}
+				String newQuery = "SELECT * FROM student";
+				ResultSet queryRes = statement.executeQuery(newQuery);
+				int counter =0;
+
+				while(queryRes.next()){
+					counter++;
+				}
+				connection.close();
+				return counter;
+
+			} catch (SQLException e){
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
+	public int numberOfSlots(int sessionID,int num){
+		if(num>0 && sessionID>0){
+			try{
+				Connection connection = DriverManager
+						.getConnection("jdbc:derby:data/BookingSystem;create=true");
+				Statement statement = connection.createStatement();
+				for(int i=0;i<num;i++){
+					statement.addBatch("INSERT INTO session_timeslot(session_id,timeslot_id) VALUES("
+						+ sessionID + "," + i + ");");
+					statement.executeBatch();
+				}
+				String newQuery = "SELECT count(timeslot_id) FROM session_timeslot WHERE session_id ="+ sessionID + " GROUP BY session_id";;
+				ResultSet queryRes = statement.executeQuery(newQuery);
+				int counter = 0;
+				if(queryRes.next()){
+					counter = queryRes.getInt(1);
+				}
+				connection.close();
+				return counter;
+			}catch (SQLException e){
+				//todo
+			}
+		}
+		return 0;
+
+	}
+
+
+	// public boolean isClash(int studentID){
+	// 	if(studentID >0){
+	// 		try{
+	// 			Connection connection = DriverManager
+	// 					.getConnection("jdbc:derby:data/BookingSystem;create=true");
+	// 			Statement statement = connection.createStatement();
+	// 			String newQuery = "SELECT startTime,duration FROM timeslot WHERE student_id= "
+	// 								+ studentID;
+	// 			ResultSet queryRes = statement.executeQuery(newQuery);
+
+	// 		}
+	// 		catch(SQLException e){
+	// 			//TODO
+
+	// 		}
+	// 	}
+	// 	return 
+	// }
 	
 
 	/*
@@ -448,5 +554,22 @@ public class dbDriver implements DatabaseInterface {
 		}
 		return rs;
 	}
+
+	// public ResultSet courseNum(int courseNum){
+	// 	ResultSet rs = NULL;
+	// 	try{
+	// 		Connection connection = DriverManager
+	// 				.getConnection("jdbc:derby:data/BookingSystem;create=true");
+	// 		Statement statement = connection.createStatement();
+	// 		statement.setQueryTimeout(30);
+	// 		rs = statement
+	// 				.executeQuery("SELECT course_id " +
+	// 					"FROM course " +
+	// 					"WHERE course_id=" + courseNum);
+
+	// 	}catch (SQLException e){
+	// 		e.printStackTrace();
+	// 	}
+	// }
 
 }

@@ -42,10 +42,21 @@ And a session, 1
 When I want to create a timetable slot for a session so that rooms can be assigned to slots.
 Then the system creates a timeslot
 
+
 Scenario: As a user
-Given a user
-When a login is entered
-Then the correct interface will be displayed
+Given a student
+When a student logs in
+Then the student interface is shown
+
+Scenario: As a user
+Given an admin
+When an admin logs in
+Then the admin interface is shown
+
+Scenario: As a user
+Given a lecturer
+When a lecturer logs in
+Then the lecturer interface is shown
 
 Scenario: As a user
 Given a user
@@ -57,22 +68,22 @@ Given a list of courses
 When up to 10 sessions are added
 Then students should be able to enroll
 
-Scenario: 
+Scenario:
 Given a system
-When enrollment begins
-Then the system should be able to support 100 users at a time
+When the system supports more than 100 courses
+The system will support more than 100 courses
 
-Scenario:
-Given 100 courses
-When these are entered
-Then the system will allow students to enroll
+Scenario: System needs to handle more than 1000 users
+Given a system
+When total users are over 1000
+Then the system can support over 1000 users
 
-Scenario: 
-Given 1000 users
-When they are enrolled
-Then they should be able to interact with it simultaneously
+Scenario: System needs to support over 20 timetable slots
+Given a System
+When session 1 can support 20 timeslots
+Then the system can support more than 20 timeslots
 
-Scenario:
-Given a session
-When at least 20 timetable slots are scheduled
-Then students should be able to enroll
+Scenario: As an admin
+Given an admin
+When 
+I want to check that there are no timetable slot clashes between courses so that students are able to complete the course.
