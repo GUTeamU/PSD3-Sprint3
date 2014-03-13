@@ -288,13 +288,20 @@ public class UserStorySteps {
 		numCourse=db.courseNum(courseNumb);
 	}
 
-
-	
 	@Then("The system will support more than $courseN courses")
 	public void courseNumSupport(int courseN){
 		assertThat(courseN,greaterThan(100));
 	}
 
+	@When("total users are over $totalUsers")
+	public void countUsers(int totalUsers){
+		numUsers = db.userNumber(totalUsers);
+	}
+
+	@Then("system can support more than $total users")
+	public void usersSupported(int total){
+		assertThat(total,greaterThan(1000));
+	}
 
 	
 }
