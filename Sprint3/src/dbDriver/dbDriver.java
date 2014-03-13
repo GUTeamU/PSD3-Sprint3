@@ -1,5 +1,9 @@
 package dbDriver;
 import java.sql.*;
+import java.lang.*;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class dbDriver implements DatabaseInterface {
 	
@@ -401,6 +405,26 @@ public class dbDriver implements DatabaseInterface {
 		}
 		return 0;
 
+	}
+
+	public boolean isOverlap(String startTime1, int duration1, String startTime2, int duration2){
+
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+
+		int endhour1 = duration1 / 60 + Integer.valueOf(startTime1.substring(0,1));
+		int endminute1 = duration1 % 60 + Integer.valueOf(startTime1.substring(3,4));
+
+		int endhour2 = duration2 / 60 + Integer.valueOf(startTime2.substring(0,1));
+		int endminute2 = duration2 % 60 + Integer.valueOf(startTime2.substring(3,4));
+		String endTime1 = endhour1+":"+endminute1;
+		String endTime2 = endhour2+":"+endminute2;
+
+		if(startTime2.compareTo(endTime1)== -1){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 
