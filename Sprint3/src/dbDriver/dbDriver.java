@@ -555,21 +555,4 @@ public class dbDriver implements DatabaseInterface {
 		return rs;
 	}
 
-	// public ResultSet courseNum(int courseNum){
-	// 	ResultSet rs = NULL;
-	// 	try{
-	// 		Connection connection = DriverManager
-	// 				.getConnection("jdbc:derby:data/BookingSystem;create=true");
-	// 		Statement statement = connection.createStatement();
-	// 		statement.setQueryTimeout(30);
-	// 		rs = statement
-	// 				.executeQuery("SELECT course_id " +
-	// 					"FROM course " +
-	// 					"WHERE course_id=" + courseNum);
-
-	// 	}catch (SQLException e){
-	// 		e.printStackTrace();
-	// 	}
-	// }
-
 }

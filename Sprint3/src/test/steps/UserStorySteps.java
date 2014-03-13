@@ -224,10 +224,6 @@ public class UserStorySteps {
 		}
 	}
 
-	@Then("the system checks")
-	public void checkCompulsory(){
-		
-	}
 
 	@Then("the system the system creates a timeslot")
 	public void checkAssignment(){
@@ -302,6 +298,14 @@ public class UserStorySteps {
 	public void usersSupported(int total){
 		assertThat(total,greaterThan(1000));
 	}
-
+	
+	@When("session $sessionID can support $slotNum timetable slots")
+	public void numberOfSlots(int sessionID, int slotNum){
+		numSlots = db.slotNumber(sessionID, slotNum);
+	}
+	@Then("the system can support more than $totalSlot timeslots")
+	public void slotsSupported(int totalSlot){
+		assertThat(totalSlot,greaterThan(20));
+	}
 	
 }
